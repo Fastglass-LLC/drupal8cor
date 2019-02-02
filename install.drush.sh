@@ -82,7 +82,9 @@ SET4="\$settings['redis.connection']['base'] = redisBaseID;"
 
 # Composer install is run as this will load what is in the composer.lock
 
-composer install --no-dev
+if [[ -z "${SUBSITE// }" ]]; then
+  composer install --no-dev
+fi
 
 # Set defaults on Redis.
 if [[ -z "${RDHOST// }" ]]; then
