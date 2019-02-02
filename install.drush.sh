@@ -120,20 +120,20 @@ chmod 644 ${DWD}/web/sites/default/settings.php
 chmod 444 ${DWD}/web/sites/default/settings.php
 chmod 555 ${DWD}/web/sites/default
 
-# Cleanup and delete text files
-rm ${DWD}/web/INSTALL.txt
-rm ${DWD}/web/README.txt
-rm ${DWD}/web/core/CHANGELOG.txt
-rm ${DWD}/web/core/COPYRIGHT.txt
-rm ${DWD}/web/core/INSTALL.mysql.txt
-rm ${DWD}/web/core/INSTALL.pgsql.txt
-rm ${DWD}/web/core/INSTALL.sqlite.txt
-rm ${DWD}/web/core/INSTALL.txt
-rm ${DWD}/web/core/MAINTAINERS.txt
-rm ${DWD}/web/core/UPDATE.txt
-
-# Rename the License file to stay compliant but not easily found
-mv ${DWD}/web/core/LICENSE.txt ${DWD}/web/core/license-file.txt
+## Cleanup and delete text files
+#rm ${DWD}/web/INSTALL.txt
+#rm ${DWD}/web/README.txt
+#rm ${DWD}/web/core/CHANGELOG.txt
+#rm ${DWD}/web/core/COPYRIGHT.txt
+#rm ${DWD}/web/core/INSTALL.mysql.txt
+#rm ${DWD}/web/core/INSTALL.pgsql.txt
+#rm ${DWD}/web/core/INSTALL.sqlite.txt
+#rm ${DWD}/web/core/INSTALL.txt
+#rm ${DWD}/web/core/MAINTAINERS.txt
+#rm ${DWD}/web/core/UPDATE.txt
+#
+## Rename the License file to stay compliant but not easily found
+#mv ${DWD}/web/core/LICENSE.txt ${DWD}/web/core/license-file.txt
 
 echo "Optimize Composer Autoloader"
 cd ${DWD}
