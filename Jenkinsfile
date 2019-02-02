@@ -135,6 +135,7 @@ pipeline {
   post {
     always {
       script {
+        sh 'chmod -R 777 web/sites/default'
         withCredentials([usernamePassword(credentialsId: 'mysql-root', passwordVariable: 'DATABASE_PASSWORD', usernameVariable: 'DATABASE_USERNAME')]) {
           def dbrootuser = env.DATABASE_USERNAME
           def dbrootpass = env.DATABASE_PASSWORD
@@ -150,7 +151,6 @@ pipeline {
         } // withCredentials
         new SlackNotifier().notifyResultFull()
         // If permissions are not changes Jenkins will not be able to clean the workspace.
-        sh 'chmod -R 777 web/sites/default'
         cleanWs()
       } // script
       cleanWs()
