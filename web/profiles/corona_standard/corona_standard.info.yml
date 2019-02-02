@@ -1,0 +1,9 @@
+name: corona-standard
+type: profile
+description: 'Corona Standard Profile'
+core: 8.x
+
+dependencies:
+  - 'redis'
+  - 'panels'
+
