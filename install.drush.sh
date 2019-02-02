@@ -1,6 +1,6 @@
 #!/bin/bash
 
-while getopts ":g:i:j:n:r:o:d:e:t:u:h:x:" opt; do
+while getopts ":g:i:j:n:r:o:d:e:t:u:h:x:s:" opt; do
   case ${opt} in
     g )
       DBHOST=$OPTARG
@@ -35,6 +35,9 @@ while getopts ":g:i:j:n:r:o:d:e:t:u:h:x:" opt; do
     x )
       DELETESETTING=$OPTARG
       ;;
+    s )
+      SUBSITE=$OPTARG
+      ;;
     h )
       echo "Command Line Options"
       echo "-g Database Host"
@@ -48,6 +51,7 @@ while getopts ":g:i:j:n:r:o:d:e:t:u:h:x:" opt; do
       echo "-t Drupal Sitename"
       echo "-u Drupal Site email address"
       echo "-x Set to \"yes\" to delete the existing settings files. Default to no. No quotes around the value"
+      echo "-s Subsite Directory. If this is specified only a subsite will be installed on an existing site. If no existing site it will fail."
       exit 1
       ;;
     \? )
@@ -61,7 +65,7 @@ done
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DWD=${DIR}
 
-if [[ -z "${DELETESETTING// }" ]]; then
+if [[ -z "${DELETESETTING// }" ]] || [[ ! -z "${SUBSITE// }" ]]; then
   DELETESETTING="no"
 fi
 
@@ -88,19 +92,27 @@ if [[ -z "${RDNUMBER// }" ]]; then
   RDNUMBER="1"
 fi
 
-
 SET2_result="${SET2/redisAddress/$RDHOST}"
 SET4_result="${SET4/redisBaseID/$RDNUMBER}"
 
 REDIS_SETTINGS=$'\n'"${SET0}"$'\n'"${SET1}"$'\n'"${SET2_result}"$'\n'"${SET3}"$'\n'"${SET4_result}"
 
-drush site-install standard -y \
---site-name=$DSITENAME \
---site-mail=$DSITEEMAIL \
---account-name=$DNAME \
---account-pass=$DPASS \
---account-mail=$DSITEEMAIL \
---db-url=mysql://$DBUSER:$DBPASS@$DBHOST/$DBNAME ;
+if [[ -z "${SUBSITE// }" ]]; then
+  ## Standard site install
+  drush site-install standard -y \
+  --site-name=$DSITENAME \
+  --site-mail=$DSITEEMAIL \
+  --account-name=$DNAME \
+  --account-pass=$DPASS \
+  --account-mail=$DSITEEMAIL \
+  --db-url=mysql://$DBUSER:$DBPASS@$DBHOST/$DBNAME
+else
+  drush si -y --sites-subdir=$SUBSITE \
+  --db-url=mysql://$DBUSER:$DBPASS@$DBHOST/$DBNAME \
+  --account-name=$DNAME \
+  --account-pass=$DPASS
+  exit 0
+fi
 
 chmod 777 ${DWD}/web/sites/default
 chmod 644 ${DWD}/web/sites/default/settings.php
