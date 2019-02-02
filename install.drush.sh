@@ -104,7 +104,7 @@ drush site-install standard -y \
 
 chmod 777 ${DWD}/web/sites/default
 chmod 644 ${DWD}/web/sites/default/settings.php
-echo "$REDIS_SETTINGS" >> ${DWD}/web/sites/default/settings.php
+# echo "$REDIS_SETTINGS" >> ${DWD}/web/sites/default/settings.php
 chmod 444 ${DWD}/web/sites/default/settings.php
 chmod 555 ${DWD}/web/sites/default
 
