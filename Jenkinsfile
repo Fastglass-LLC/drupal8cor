@@ -5,6 +5,7 @@ pipeline {
   agent any
   environment {
     MYSQLHOST = 'localhost'
+    DRUPALADMINUSER = 'd7admin'
     DRUPALADMINUSERPASS = 'horse-staple-battery'
     DRUPALSITENAME = 'My Corona Site'
     DRUPALSITEMAIL = 'drupal@fastglass.net'
@@ -41,11 +42,6 @@ pipeline {
           def commitHash = checkout(scm).GIT_COMMIT
           echo "Commit Hash is ${commitHash}"
         }
-      }
-    }
-    stage('Composer CC') {
-      steps {
-        sh 'composer clear-cache'
       }
     }
     stage('Install Base') {
@@ -135,7 +131,9 @@ pipeline {
   post {
     always {
       script {
+        // Set permissions for cleaning up work space and remove sites file.
         sh 'chmod -R 777 web/sites/default'
+        sh 'rm -rf web/sites/sites.php'
         withCredentials([usernamePassword(credentialsId: 'mysql-root', passwordVariable: 'DATABASE_PASSWORD', usernameVariable: 'DATABASE_USERNAME')]) {
           def dbrootuser = env.DATABASE_USERNAME
           def dbrootpass = env.DATABASE_PASSWORD

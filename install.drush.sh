@@ -100,19 +100,21 @@ SET4_result="${SET4/redisBaseID/$RDNUMBER}"
 REDIS_SETTINGS=$'\n'"${SET0}"$'\n'"${SET1}"$'\n'"${SET2_result}"$'\n'"${SET3}"$'\n'"${SET4_result}"
 
 if [[ -z "${SUBSITE// }" ]]; then
+  echo "Base Site Installation"
   ## Standard site install
-  drush site-install standard -y \
+  drush site-install corona_standard -y \
   --site-name=$DSITENAME \
   --site-mail=$DSITEEMAIL \
   --account-name=$DNAME \
   --account-pass=$DPASS \
   --account-mail=$DSITEEMAIL \
-  --db-url=mysql://$DBUSER:$DBPASS@$DBHOST/$DBNAME
+  --db-url=mysql://$DBUSER:$DBPASS@$DBHOST/$DBNAME -v
 else
-  drush si -y --sites-subdir=$SUBSITE \
+  echo "Subsite Installation"
+  drush site-install -y --sites-subdir=$SUBSITE \
   --db-url=mysql://$DBUSER:$DBPASS@$DBHOST/$DBNAME \
   --account-name=$DNAME \
-  --account-pass=$DPASS
+  --account-pass=$DPASS -v
   exit 0
 fi
 
