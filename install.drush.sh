@@ -108,13 +108,13 @@ if [[ -z "${SUBSITE// }" ]]; then
   --account-name=$DNAME \
   --account-pass=$DPASS \
   --account-mail=$DSITEEMAIL \
-  --db-url=mysql://$DBUSER:$DBPASS@$DBHOST/$DBNAME
+  --db-url=mysql://$DBUSER:$DBPASS@$DBHOST/$DBNAME -v
 else
   echo "Subsite Installation"
-  drush si -y --sites-subdir=$SUBSITE \
+  drush site-install -y --sites-subdir=$SUBSITE \
   --db-url=mysql://$DBUSER:$DBPASS@$DBHOST/$DBNAME \
   --account-name=$DNAME \
-  --account-pass=$DPASS
+  --account-pass=$DPASS -v
   exit 0
 fi
 
