@@ -101,7 +101,7 @@ REDIS_SETTINGS=$'\n'"${SET0}"$'\n'"${SET1}"$'\n'"${SET2_result}"$'\n'"${SET3}"$'
 
 if [[ -z "${SUBSITE// }" ]]; then
   ## Standard site install
-  drush site-install standard -y \
+  drush site-install corona_standard -y \
   --site-name=$DSITENAME \
   --site-mail=$DSITEEMAIL \
   --account-name=$DNAME \
