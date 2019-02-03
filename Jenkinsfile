@@ -44,11 +44,6 @@ pipeline {
         }
       }
     }
-    stage('Composer CC') {
-      steps {
-        sh 'composer clear-cache'
-      }
-    }
     stage('Install Base') {
       steps {
         script {
