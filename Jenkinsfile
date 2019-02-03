@@ -5,6 +5,7 @@ pipeline {
   agent any
   environment {
     MYSQLHOST = 'localhost'
+    $DRUPALADMINUSER = 'd7admin'
     DRUPALADMINUSERPASS = 'horse-staple-battery'
     DRUPALSITENAME = 'My Corona Site'
     DRUPALSITEMAIL = 'drupal@fastglass.net'
