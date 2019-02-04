@@ -22,6 +22,7 @@
         "drupal-composer/drupal-scaffold": "^2.5",
         "drupal/console": "^1.0.2",
         "drupal/core": "^8.6.0",
+        "drupal/jsonapi": "^2.1",
         "drupal/panels": "^4.3",
         "drupal/redis": "^1.1",
         "drush/drush": "^9.0.0",
