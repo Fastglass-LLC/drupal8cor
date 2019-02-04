@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cor_metad_storage_size
+    - node.type.cor_document
+id: node.cor_document.field_cor_metad_storage_size
+field_name: field_cor_metad_storage_size
+entity_type: node
+bundle: cor_document
+label: 'Metadata Storage Size'
+description: 'This is the file storage size in bytes.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: !!float 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: float
