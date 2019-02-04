@@ -43,6 +43,7 @@ install:
   - basic_auth
   - serialization
   - jsonapi
+  - admin_toolbar
 themes:
   - bartik
   - seven
