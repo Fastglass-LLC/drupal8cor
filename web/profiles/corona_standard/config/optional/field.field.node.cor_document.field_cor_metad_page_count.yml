@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cor_metad_page_count
+    - node.type.cor_document
+id: node.cor_document.field_cor_metad_page_count
+field_name: field_cor_metad_page_count
+entity_type: node
+bundle: cor_document
+label: 'Metadata Page Count'
+description: 'This is the Page Count of the uploaded Document.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

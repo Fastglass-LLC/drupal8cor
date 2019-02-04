@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cor_metad_last_modified
+    - node.type.cor_document
+id: node.cor_document.field_cor_metad_last_modified
+field_name: field_cor_metad_last_modified
+entity_type: node
+bundle: cor_document
+label: 'Metadata Last Modified'
+description: 'This is the Last Modified timestamp of the uploaded Document.'
+required: true
+translatable: false
+default_value:
+  -
+    value: 1549060234
+default_value_callback: ''
+settings: {  }
+field_type: timestamp
