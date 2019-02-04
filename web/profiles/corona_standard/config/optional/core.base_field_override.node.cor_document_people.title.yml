@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.cor_document_people
+id: node.cor_document_people.title
+field_name: title
+entity_type: node
+bundle: cor_document_people
+label: 'Document People'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
