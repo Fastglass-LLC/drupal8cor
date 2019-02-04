@@ -40,6 +40,9 @@ install:
   - automated_cron
   - redis
   - panels
+  - basic_auth
+  - serialization
+  - jsonapi
 themes:
   - bartik
   - seven
