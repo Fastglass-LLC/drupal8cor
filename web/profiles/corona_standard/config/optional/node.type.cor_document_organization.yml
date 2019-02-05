@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Document Organization'
+type: cor_document_organization
+description: 'This content type contains information based on the Organizations that were found in the Document per Azure Search indexing.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

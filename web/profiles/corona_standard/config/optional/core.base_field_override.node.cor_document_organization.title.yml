@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.cor_document_organization
+id: node.cor_document_organization.title
+field_name: title
+entity_type: node
+bundle: cor_document_organization
+label: 'Document Organization'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
