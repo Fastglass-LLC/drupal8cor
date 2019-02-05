@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cor_related_document
+    - node.type.cor_document
+    - node.type.cor_document_people
+id: node.cor_document_people.field_cor_related_document
+field_name: field_cor_related_document
+entity_type: node
+bundle: cor_document_people
+label: 'Related Document'
+description: 'The Document that contains the People noted in the Search.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      cor_document: cor_document
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
