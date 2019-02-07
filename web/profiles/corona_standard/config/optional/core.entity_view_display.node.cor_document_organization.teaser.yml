@@ -4,6 +4,9 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.cor_document_organization.body
+    - field.field.node.cor_document_organization.field_cor_related_document
+    - field.field.node.cor_document_organization.field_cor_tagged_result
+    - field.field.node.cor_document_organization.field_cor_text_value
     - node.type.cor_document_organization
   module:
     - text
@@ -26,4 +29,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
-hidden: {  }
+hidden:
+  field_cor_related_document: true
+  field_cor_tagged_result: true
+  field_cor_text_value: true
