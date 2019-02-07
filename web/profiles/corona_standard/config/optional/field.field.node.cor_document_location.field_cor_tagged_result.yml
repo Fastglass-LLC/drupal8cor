@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cor_tagged_result
+    - node.type.cor_document_location
+id: node.cor_document_location.field_cor_tagged_result
+field_name: field_cor_tagged_result
+entity_type: node
+bundle: cor_document_location
+label: 'Tagged Result'
+description: 'This field denotes if the Text Value is a good value that we should search on going forward.'
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
