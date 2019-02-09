@@ -23,6 +23,7 @@
         "drupal/admin_toolbar": "^1.26",
         "drupal/console": "^1.0.2",
         "drupal/core": "^8.6.0",
+        "drupal/default_content": "1.x-dev",
         "drupal/jsonapi": "^2.1",
         "drupal/panels": "^4.3",
         "drupal/redis": "^1.1",
