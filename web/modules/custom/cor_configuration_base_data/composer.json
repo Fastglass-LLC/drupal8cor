@@ -1,0 +1,9 @@
+{
+  "name": "drupal/cor_configuration_base_data",
+  "type": "drupal-module",
+  "description": "Base Data to be enabled by the site on enabling the module.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "require": { }
+}

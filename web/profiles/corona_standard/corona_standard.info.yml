@@ -44,6 +44,7 @@ install:
   - serialization
   - jsonapi
   - admin_toolbar
+  - default_content
 themes:
   - bartik
   - seven

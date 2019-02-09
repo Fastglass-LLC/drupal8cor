@@ -1,0 +1,7 @@
+name: COR Base Configuration Data
+type: module
+description: Base Data to be enabled by the site on enabling the module.
+core: 8.x
+package: 'COR Configuration'
+dependencies:
+  - default_content

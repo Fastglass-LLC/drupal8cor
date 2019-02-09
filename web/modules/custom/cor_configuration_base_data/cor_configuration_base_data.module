@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains cor_configuration_base_data.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function cor_configuration_base_data_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the cor_configuration_base_data module.
+    case 'help.page.cor_configuration_base_data':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Base Data to be enabled by the site on enabling the module.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
