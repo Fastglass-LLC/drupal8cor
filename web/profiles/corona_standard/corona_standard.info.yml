@@ -45,7 +45,6 @@ install:
   - jsonapi
   - admin_toolbar
   - default_content
-  - cor_configuration_base_data
 themes:
   - bartik
   - seven
