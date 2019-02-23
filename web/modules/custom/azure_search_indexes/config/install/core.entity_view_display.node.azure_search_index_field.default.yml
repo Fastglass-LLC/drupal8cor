@@ -2,6 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.azure_search_index_field.field_azure_search_field_analyze
+    - field.field.node.azure_search_index_field.field_azure_search_field_facet
+    - field.field.node.azure_search_index_field.field_azure_search_field_filter
+    - field.field.node.azure_search_index_field.field_azure_search_field_key
+    - field.field.node.azure_search_index_field.field_azure_search_field_retriev
+    - field.field.node.azure_search_index_field.field_azure_search_field_sortabl
     - field.field.node.azure_search_index_field.field_azure_search_index_field
     - field.field.node.azure_search_index_field.field_azure_search_index_fld_bln
     - field.field.node.azure_search_index_field.field_azure_search_index_fld_txt
@@ -13,35 +19,93 @@ targetEntityType: node
 bundle: azure_search_index_field
 mode: default
 content:
+  field_azure_search_field_analyze:
+    weight: 7
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_azure_search_field_facet:
+    weight: 5
+    label: inline
+    settings:
+      format: unicode-yes-no
+      format_custom_true: ''
+      format_custom_false: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_azure_search_field_filter:
+    weight: 3
+    label: inline
+    settings:
+      format: unicode-yes-no
+      format_custom_true: ''
+      format_custom_false: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_azure_search_field_key:
+    weight: 8
+    label: inline
+    settings:
+      format: yes-no
+      format_custom_true: ''
+      format_custom_false: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_azure_search_field_retriev:
+    weight: 2
+    label: inline
+    settings:
+      format: unicode-yes-no
+      format_custom_true: ''
+      format_custom_false: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_azure_search_field_sortabl:
+    weight: 4
+    label: inline
+    settings:
+      format: unicode-yes-no
+      format_custom_true: ''
+      format_custom_false: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
   field_azure_search_index_field:
-    weight: 104
-    label: above
+    weight: 9
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: content
   field_azure_search_index_fld_bln:
-    weight: 103
-    label: above
+    weight: 6
+    label: inline
     settings:
-      format: default
-      format_custom_false: ''
+      format: unicode-yes-no
       format_custom_true: ''
+      format_custom_false: ''
     third_party_settings: {  }
     type: boolean
     region: content
   field_azure_search_index_fld_txt:
-    weight: 102
-    label: above
+    weight: 1
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
     region: content
   links:
-    weight: 100
+    weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden: {  }
