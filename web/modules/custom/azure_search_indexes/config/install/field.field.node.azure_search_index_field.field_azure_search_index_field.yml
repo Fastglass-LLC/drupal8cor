@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_azure_search_index_field
+    - node.type.azure_search_index
+    - node.type.azure_search_index_field
+id: node.azure_search_index_field.field_azure_search_index_field
+field_name: field_azure_search_index_field
+entity_type: node
+bundle: azure_search_index_field
+label: 'Search Index'
+description: 'This is the parent Search Index that the field belongs to.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      azure_search_index: azure_search_index
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
