@@ -1,0 +1,5 @@
+name: Azure Search Settings
+type: module
+description: This module holds the configuration settings required for interacting with the Azure Search services.
+package: Azure Search
+core: 8.x
