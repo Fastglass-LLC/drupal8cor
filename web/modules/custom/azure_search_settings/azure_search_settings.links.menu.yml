@@ -1,0 +1,6 @@
+azure_search_settings.admin:
+  title: 'Azure Search Settings'
+  description: 'Manage settings for Azure Search.'
+  parent: system.admin_config_system
+  route_name: azure_search_settings.settings_form
+  weight: -51

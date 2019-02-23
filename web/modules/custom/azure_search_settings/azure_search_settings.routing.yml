@@ -1,0 +1,7 @@
+azure_search_settings.settings_form:
+  path: '/admin/config/system/azure-search-settings'
+  defaults:
+    _title: 'Azure Search Settings'
+    _form: 'Drupal\azure_search_settings\Form\SettingsForm'
+  requirements:
+    _permission: 'administer azure_search_settings configuration'
