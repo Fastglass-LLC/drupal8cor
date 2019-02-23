@@ -46,6 +46,7 @@ install:
   - admin_toolbar
   - default_content
   - azure_search_settings
+  - azure_search_indexes
 themes:
   - bartik
   - seven
