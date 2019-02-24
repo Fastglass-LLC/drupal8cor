@@ -35,6 +35,12 @@ class SettingsForm extends ConfigFormBase {
       '#open' => TRUE,
     ];
 
+    $form['azure_search_indexes'] = [
+      '#type' => 'details',
+      '#title' => t('Azure Search Settings'),
+      '#open' => TRUE,
+    ];
+
     $form['azure_search_settings']['endpoint'] = [
       '#type' => 'textfield',
       '#title' => t('Azure Search Endpoint'),
@@ -55,7 +61,23 @@ class SettingsForm extends ConfigFormBase {
       '#description' => t('This is the api version of endpoint of your Azure Search service.  The default supported value at this time is "2017-11-11"'),
     ];
 
+    $form['azure_search_indexes']['resync_indexes'] = [
+      '#type' => 'submit',
+      '#value' => 'Resync Indexes',
+      '#submit' => ['::resyncIndexes'],
+      '#description' => t('Clicking this button will resync the settings for all stored Indexes and their related Fields within your Azure Search instance.'),
+    ];
+
     return parent::buildForm($form, $form_state);
+  }
+
+  /**
+   * This is the resyncIndexes function.
+   */
+  public function resyncIndexes(array &$form, FormStateInterface $form_state) {
+
+    $this->messenger()->addStatus($this->t('I got clicked!!!'));
+
   }
 
   /**
