@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_azure_search_field_facet
+    - node.type.azure_search_index_field
+id: node.azure_search_index_field.field_azure_search_field_facet
+field_name: field_azure_search_field_facet
+entity_type: node
+bundle: azure_search_index_field
+label: Facetable
+description: 'This denotes where the Azure Search Index Field is facetable.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

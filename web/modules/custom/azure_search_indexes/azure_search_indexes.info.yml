@@ -1,0 +1,13 @@
+name: 'Azure Search Indexes'
+description: 'This module contains all configuration settings to store the Azure Search Indexes and their related metadata in Drupal for management.'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - menu_ui
+  - node
+  - path
+  - text
+  - user
+  - azure_search_settings
+version: 8.x-1.0-alpha

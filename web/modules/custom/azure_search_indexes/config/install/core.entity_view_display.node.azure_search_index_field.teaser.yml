@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.azure_search_index_field.field_azure_search_field_analyze
+    - field.field.node.azure_search_index_field.field_azure_search_field_facet
+    - field.field.node.azure_search_index_field.field_azure_search_field_filter
+    - field.field.node.azure_search_index_field.field_azure_search_field_key
+    - field.field.node.azure_search_index_field.field_azure_search_field_retriev
+    - field.field.node.azure_search_index_field.field_azure_search_field_sortabl
+    - field.field.node.azure_search_index_field.field_azure_search_index_field
+    - field.field.node.azure_search_index_field.field_azure_search_index_fld_bln
+    - field.field.node.azure_search_index_field.field_azure_search_index_fld_txt
+    - node.type.azure_search_index_field
+  module:
+    - user
+id: node.azure_search_index_field.teaser
+targetEntityType: node
+bundle: azure_search_index_field
+mode: teaser
+content:
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_azure_search_field_analyze: true
+  field_azure_search_field_facet: true
+  field_azure_search_field_filter: true
+  field_azure_search_field_key: true
+  field_azure_search_field_retriev: true
+  field_azure_search_field_sortabl: true
+  field_azure_search_index_field: true
+  field_azure_search_index_fld_bln: true
+  field_azure_search_index_fld_txt: true

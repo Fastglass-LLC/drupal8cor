@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.azure_search_index
+id: node.azure_search_index.title
+field_name: title
+entity_type: node
+bundle: azure_search_index
+label: 'Index Name'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
