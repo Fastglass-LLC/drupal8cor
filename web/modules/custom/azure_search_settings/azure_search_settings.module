@@ -8,3 +8,89 @@
  * This file is no longer required in Drupal 8.
  * @see https://www.drupal.org/node/2217931
  */
+
+use GuzzleHttp\Pool;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
+
+//azure_search_settings
+/**
+ * Implements hook_entity_presave().
+ */
+function azure_search_settings_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+
+  $config = \Drupal::config('azure_search_settings.settings');
+
+  switch ($entity->bundle()) {
+    // Here you modify only your day content type
+    case 'azure_search_synonym':
+      $json_template = '';
+      try {
+
+        $json_template = '{"name" : "[name]","format" : "[format]","synonyms" : "[synonyms]"}';
+
+        $json_template =str_replace('[name]', $entity->title->value, $json_template);
+        $json_template =str_replace('[format]', $entity->field_azure_search_syn_format->value, $json_template);
+        $json_template =str_replace('[synonyms]', $entity->field_azure_search_synonym_value->value, $json_template);
+
+        \Drupal::messenger()
+          ->addMessage(t($json_template), 'status');
+
+        $client = new Client();
+
+        if ($entity->id() == NULL) {
+          //Case for adding a new Synonym
+
+          $request = new Request(
+            "POST",
+            "https://" . $config->get('endpoint') . ".search.windows.net/synonymmaps?api-version=" . $config->get('api-version'),
+            [
+              "api-key" => $config->get('api-key'),
+              "content-type" => "application/json",
+            ],
+            "" . $json_template . "");
+
+          $response = $client->send($request);
+
+          if ($response->getStatusCode() != 201) {
+            \Drupal::messenger()
+              ->addError('There was an error calling the new web service \n' . $response->getBody());
+          }
+          else {
+            \Drupal::messenger()
+              ->addMessage(t('In the presave function - New entity: ' . $entity->bundle()), 'status');
+          }
+        }
+        else {
+          //Case for updating an existing Synonym
+          $request = new Request(
+            "POST",
+            "https://" . $config->get('endpoint') . ".search.windows.net/synonymmaps?api-version=" . $config->get('api-version'),
+            [
+              "api-key" => $config->get('api-key'),
+              "content-type" => "application/json",
+            ],
+            "" . $json_template . "");
+
+          $response = $client->send($request);
+
+          if ($response->getStatusCode() != 204) {
+            $this->messenger()
+              ->addError('There was an error calling the update web service \n' . $response->getBody());
+          }
+          else {
+            \Drupal::messenger()
+              ->addMessage(t('In the presave function - update entity: ' . $entity->bundle()), 'status');
+          }
+        }
+
+      } catch (\Exception $e) {
+        // Add Logger here.
+        \Drupal::logger('type')->error($e->getMessage());
+        \Drupal::logger('type')->warning('Request body:\n'.$json_template);
+        throw $e;
+      }
+      break;
+
+  }
+}
