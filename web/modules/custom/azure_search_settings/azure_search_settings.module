@@ -9,11 +9,9 @@
  * @see https://www.drupal.org/node/2217931
  */
 
-use GuzzleHttp\Pool;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 
-//azure_search_settings
 /**
  * Implements hook_entity_presave().
  */
@@ -22,7 +20,6 @@ function azure_search_settings_entity_presave(Drupal\Core\Entity\EntityInterface
   $config = \Drupal::config('azure_search_settings.settings');
 
   switch ($entity->bundle()) {
-    // Here you modify only your day content type
     case 'azure_search_synonym':
       $json_template = '';
       try {
@@ -66,7 +63,7 @@ function azure_search_settings_entity_presave(Drupal\Core\Entity\EntityInterface
           //Case for updating an existing Synonym
           $request = new Request(
             "PUT",
-            "https://" . $config->get('endpoint') . ".search.windows.net/synonymmaps/".$entity->title->value."?api-version=" . $config->get('api-version'),
+            "https://" . $config->get('endpoint') . ".search.windows.net/synonymmaps/" . $entity->title->value . "?api-version=" . $config->get('api-version'),
             [
               "api-key" => $config->get('api-key'),
               "content-type" => "application/json",
@@ -86,12 +83,48 @@ function azure_search_settings_entity_presave(Drupal\Core\Entity\EntityInterface
         }
 
       } catch (\Exception $e) {
-        // Add Logger here.
         \Drupal::logger('type')->error($e->getMessage());
         \Drupal::logger('type')->warning('Request body:\n' . $json_template);
-        throw $e;
       }
       break;
 
+  }
+}
+
+/**
+ * Implements hook_entity_predelete().
+ */
+function azure_search_settings_entity_predelete(Drupal\Core\Entity\EntityInterface $entity) {
+  $config = \Drupal::config('azure_search_settings.settings');
+
+  switch ($entity->bundle()) {
+    case 'azure_search_synonym':
+      try {
+        $client = new Client();
+
+        $request = new Request(
+          "DELETE",
+          "https://" . $config->get('endpoint') . ".search.windows.net/synonymmaps/" . $entity->title->value . "?api-version=" . $config->get('api-version'),
+          [
+            "api-key" => $config->get('api-key'),
+            "content-type" => "application/json",
+          ],
+          "");
+
+        $response = $client->send($request);
+
+        if ($response->getStatusCode() != 204) {
+          $this->messenger()
+            ->addError('There was an error calling the update web service \n' . $response->getBody());
+        }
+        else {
+          \Drupal::messenger()
+            ->addMessage(t('In the predelete function - update entity: ' . $entity->bundle()), 'status');
+        }
+      } catch (\Exception $e) {
+        \Drupal::logger('type')->error($e->getMessage());
+        \Drupal::logger('type')->warning('There was an issue deleting the synonym: ' . $entity->title->value);
+      }
+      break;
   }
 }
