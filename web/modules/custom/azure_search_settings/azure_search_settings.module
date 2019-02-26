@@ -31,9 +31,6 @@ function azure_search_settings_entity_presave(Drupal\Core\Entity\EntityInterface
         $json_template = str_replace('[format]', $entity->field_azure_search_syn_format->value, $json_template);
         $json_template = str_replace('[synonyms]', $entity->field_azure_search_synonym_value->value, $json_template);
 
-        \Drupal::messenger()
-          ->addMessage(t($json_template), 'status');
-
         $client = new Client();
 
         if ($entity->id() == NULL) {
