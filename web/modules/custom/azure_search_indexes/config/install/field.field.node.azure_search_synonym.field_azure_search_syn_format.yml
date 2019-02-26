@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_azure_search_syn_format
+    - node.type.azure_search_synonym
+id: node.azure_search_synonym.field_azure_search_syn_format
+field_name: field_azure_search_syn_format
+entity_type: node
+bundle: azure_search_synonym
+label: Format
+description: 'This is the format of the Synonym.  Defaulting this value to solr as that is the only value that is supported in Azure Search at this point.'
+required: true
+translatable: false
+default_value:
+  -
+    value: solr
+default_value_callback: ''
+settings: {  }
+field_type: string
