@@ -27,11 +27,12 @@ function azure_search_settings_entity_presave(Drupal\Core\Entity\EntityInterface
       $json_template = '';
       try {
 
+        //TODO - Need to replace the \r\n in the field_azure_search_synonym_value with just \n based on Azure documentation.
         $json_template = '{"name" : "[name]","format" : "[format]","synonyms" : "[synonyms]"}';
 
-        $json_template =str_replace('[name]', $entity->title->value, $json_template);
-        $json_template =str_replace('[format]', $entity->field_azure_search_syn_format->value, $json_template);
-        $json_template =str_replace('[synonyms]', $entity->field_azure_search_synonym_value->value, $json_template);
+        $json_template = str_replace('[name]', $entity->title->value, $json_template);
+        $json_template = str_replace('[format]', $entity->field_azure_search_syn_format->value, $json_template);
+        $json_template = str_replace('[synonyms]', $entity->field_azure_search_synonym_value->value, $json_template);
 
         \Drupal::messenger()
           ->addMessage(t($json_template), 'status');
@@ -64,8 +65,8 @@ function azure_search_settings_entity_presave(Drupal\Core\Entity\EntityInterface
         else {
           //Case for updating an existing Synonym
           $request = new Request(
-            "POST",
-            "https://" . $config->get('endpoint') . ".search.windows.net/synonymmaps?api-version=" . $config->get('api-version'),
+            "PUT",
+            "https://" . $config->get('endpoint') . ".search.windows.net/synonymmaps/".$entity->title->value."?api-version=" . $config->get('api-version'),
             [
               "api-key" => $config->get('api-key'),
               "content-type" => "application/json",
@@ -87,7 +88,7 @@ function azure_search_settings_entity_presave(Drupal\Core\Entity\EntityInterface
       } catch (\Exception $e) {
         // Add Logger here.
         \Drupal::logger('type')->error($e->getMessage());
-        \Drupal::logger('type')->warning('Request body:\n'.$json_template);
+        \Drupal::logger('type')->warning('Request body:\n' . $json_template);
         throw $e;
       }
       break;
