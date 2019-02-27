@@ -4,6 +4,8 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.azure_search_synonym.body
+    - field.field.node.azure_search_synonym.field_azure_search_syn_format
+    - field.field.node.azure_search_synonym.field_azure_search_synonym_value
     - node.type.azure_search_synonym
   module:
     - text
@@ -26,4 +28,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
-hidden: {  }
+hidden:
+  field_azure_search_syn_format: true
+  field_azure_search_synonym_value: true

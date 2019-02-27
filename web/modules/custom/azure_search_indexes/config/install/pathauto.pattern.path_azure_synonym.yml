@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: path_azure_synonym
+label: 'Azure Synonym Path'
+type: 'canonical_entities:node'
+pattern: '/azure-search/synonyms/[node:title]'
+selection_criteria:
+  8bd123f4-918d-489f-b33d-23577253a631:
+    id: node_type
+    bundles:
+      azure_search_synonym: azure_search_synonym
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 8bd123f4-918d-489f-b33d-23577253a631
+selection_logic: and
+weight: -5
+relationships: {  }
