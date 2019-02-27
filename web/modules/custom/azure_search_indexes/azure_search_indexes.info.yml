@@ -3,11 +3,12 @@ description: 'This module contains all configuration settings to store the Azure
 type: module
 core: 8.x
 dependencies:
+  - azure_search_settings
   - field
   - menu_ui
   - node
   - path
   - text
   - user
-  - azure_search_settings
+  - views
 version: 8.x-1.0-alpha
