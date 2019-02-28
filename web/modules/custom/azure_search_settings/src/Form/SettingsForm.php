@@ -76,9 +76,9 @@ class SettingsForm extends ConfigFormBase {
 
     $form['azure_search_indexes']['resync_indexes'] = [
       '#type' => 'submit',
-      '#value' => 'Resync Indexes',
+      '#value' => 'Resync Indexes and Synonyms',
       '#submit' => ['::resyncIndexes'],
-      '#description' => t('Clicking this button will resync the settings for all stored Indexes and their related Fields within your Azure Search instance.'),
+      '#description' => t('Clicking this button will resync the settings for all stored Indexes, Synonyms, and their related Fields within your Azure Search instance.'),
     ];
 
     return parent::buildForm($form, $form_state);
@@ -93,6 +93,7 @@ class SettingsForm extends ConfigFormBase {
 
     $x = 0;
     $y = 0;
+    $z = 0;
 
     //Call Azure to get the Search Indexes and related details.
     $client = new Client();
@@ -126,8 +127,14 @@ class SettingsForm extends ConfigFormBase {
       ->execute();
     entity_delete_multiple('node', $existing_indexes);
 
+    $existing_synonyms = \Drupal::entityQuery('node')
+      ->condition('type', 'azure_search_synonym')
+      ->execute();
+    entity_delete_multiple('node', $existing_synonyms);
+
     $existing_fields = NULL;
     $existing_indexes = NULL;
+    $existing_synonyms = NULL;
 
     //Iterate through the web service response for Indexes.
     foreach ($azure_search_indexes->value as $index) {
@@ -163,8 +170,41 @@ class SettingsForm extends ConfigFormBase {
       }
     }
 
+    //Call Azure to get the Search Synonyms and their related items.
+    $request_synonyms = new Request(
+      "GET",
+      "https://" . $config->get('endpoint') . ".search.windows.net/synonymmaps?api-version=" . $config->get('api-version'),
+      [
+        "api-key" => $config->get('api-key'),
+        "content-type" => "application/json",
+      ],
+      "{}");
+
+    $response_synonyms = $client->send($request_synonyms);
+    $azure_search_synonyms = json_decode($response_synonyms->getBody());
+
+    //TODO - Need to add proper error logging.
+    if ($response_synonyms->getStatusCode() != 200) {
+      $this->messenger()
+        ->addError('There was an error calling the web service \n' . $response_synonyms->getBody());
+    }
+
+    //Iterate through the web service response for Synonyms.
+    foreach ($azure_search_synonyms->value as $synonym) {
+
+      //Add the Search Index to Drupal.
+      $synonym_node = Node::create([
+        'type' => 'azure_search_synonym',
+        'title' => $synonym->name,
+        'field_azure_search_syn_format' => $synonym->format,
+        'field_azure_search_synonym_value' => $synonym->synonyms,
+      ]);
+      $synonym_node->save();
+      $z++;
+    }
+
     $this->messenger()
-      ->addStatus($this->t('Added  ' . $x . ' Index node(s) and ' . $y . ' Field node(s) as defined in the Azure Search endpoint.'));
+      ->addStatus($this->t('Added  ' . $x . ' Index node(s), ' . $y . ' Field node(s), and ' . $z . ' Synonym node(s) as defined in the Azure Search endpoint.'));
   }
 
   /**
