@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_azure_search_tgt_field
+    - node.type.azure_search_index
+    - node.type.azure_search_index_field
+id: node.azure_search_index.field_azure_search_tgt_field
+field_name: field_azure_search_tgt_field
+entity_type: node
+bundle: azure_search_index
+label: 'Target Search Index Field'
+description: 'This optional field is the Index Field that will be used to map to a Synonym.  Note that only one Synonym can be used for an Index.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      azure_search_index_field: azure_search_index_field
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
