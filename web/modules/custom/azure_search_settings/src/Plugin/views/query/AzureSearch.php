@@ -52,60 +52,12 @@ class AzureSearch extends QueryPluginBase {
         $row['content'] = $search_row->content;
       }
 
-      if ($search_row->celebrities != NULL) {
-        $row['celebrities'] = $search_row->celebrities;
-      }
-
-      if ($search_row->imageCaption != NULL) {
-        $row['imageCaption'] = $search_row->imageCaption;
-      }
-
-      if ($search_row->imageTags != NULL) {
-        $row['imageTags'] = $search_row->imageTags;
-      }
-
-      if ($search_row->keyphrases != NULL) {
-        $row['keyphrases'] = $search_row->keyphrases;
-      }
-
-      if ($search_row->language != NULL) {
-        $row['language'] = $search_row->language;
-      }
-
-      if ($search_row->layoutText != NULL) {
-        $row['layoutText'] = $search_row->layoutText;
-      }
-
-      if ($search_row->merged_content != NULL) {
-        $row['merged_content'] = $search_row->merged_content;
-      }
-
-      if ($search_row->metadata_author != NULL) {
-        $row['metadata_author'] = $search_row->metadata_author;
-      }
-
-      if ($search_row->merged_character_count != NULL) {
-        $row['merged_character_count'] = $search_row->merged_character_count;
-      }
-
-      if ($search_row->metadata_content_type != NULL) {
-        $row['metadata_content_type'] = $search_row->metadata_content_type;
-      }
-
-      if ($search_row->metadata_creation_date != NULL) {
-        $row['metadata_creation_date'] = $search_row->metadata_creation_date;
-      }
-
-      if ($search_row->metadata_last_modified != NULL) {
-        $row['metadata_last_modified'] = $search_row->metadata_last_modified;
-      }
-
-      if ($search_row->metadata_page_count != NULL) {
-        $row['metadata_page_count'] = $search_row->metadata_page_count;
-      }
-
       if ($search_row->metadata_storage_content_type != NULL) {
         $row['metadata_storage_content_type'] = $search_row->metadata_storage_content_type;
+      }
+
+      if ($search_row->metadata_storage_size != NULL) {
+        $row['metadata_storage_size'] = $search_row->metadata_storage_size;
       }
 
       if ($search_row->metadata_storage_last_modified != NULL) {
@@ -120,24 +72,40 @@ class AzureSearch extends QueryPluginBase {
         $row['metadata_storage_path'] = $search_row->metadata_storage_path;
       }
 
-      if ($search_row->metadata_storage_size != NULL) {
-        $row['metadata_storage_size'] = $search_row->metadata_storage_size;
+      if ($search_row->metadata_content_type != NULL) {
+        $row['metadata_content_type'] = $search_row->metadata_content_type;
       }
 
-      if ($search_row->metadata_storage_word_count != NULL) {
-        $row['metadata_storage_word_count'] = $search_row->metadata_storage_word_count;
+      if ($search_row->metadata_author != NULL) {
+        $row['metadata_author'] = $search_row->metadata_author;
       }
 
-      if ($search_row->organizations != NULL) {
-        $row['organizations'] = $search_row->organizations;
+      if ($search_row->metadata_character_count != NULL) {
+        $row['metadata_character_count'] = $search_row->metadata_character_count;
       }
 
-      if ($search_row->people != NULL) {
-        $row['people'] = $search_row->people;
+      if ($search_row->metadata_creation_date != NULL) {
+        $row['metadata_creation_date'] = $search_row->metadata_creation_date;
       }
 
-      if ($search_row->text != NULL) {
-        $row['text'] = $search_row->text;
+      if ($search_row->metadata_last_modified != NULL) {
+        $row['metadata_last_modified'] = $search_row->metadata_last_modified;
+      }
+
+      if ($search_row->metadata_page_count != NULL) {
+        $row['metadata_page_count'] = $search_row->metadata_page_count;
+      }
+
+      if ($search_row->metadata_word_count != NULL) {
+        $row['metadata_word_count'] = $search_row->metadata_word_count;
+      }
+
+      if ($search_row->language != NULL) {
+        $row['language'] = $search_row->language;
+      }
+
+      if ($search_row->merged_content != NULL) {
+        $row['merged_content'] = $search_row->merged_content;
       }
 
       $this->messenger()
