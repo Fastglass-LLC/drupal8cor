@@ -35,7 +35,7 @@ function azure_search_settings_views_data() {
     'title' => t('Metadata Storage Size'),
     'help' => t('Metadata Storage Size that is returned in the search criteria.'),
     'field' => [
-      'id' => 'standard',
+      'id' => 'numeric',
     ],
   ];
   $data['azure_search_settings']['metadata_storage_last_modified'] = [
@@ -82,7 +82,7 @@ function azure_search_settings_views_data() {
     'title' => t('Metadata Character Count'),
     'help' => t('Metadata Character Count that is returned in the search criteria.'),
     'field' => [
-      'id' => 'standard',
+      'id' => 'numeric',
     ],
   ];
 
@@ -106,7 +106,7 @@ function azure_search_settings_views_data() {
     'title' => t('Metadata Page Count'),
     'help' => t('Metadata Page Count that is returned in the search criteria.'),
     'field' => [
-      'id' => 'standard',
+      'id' => 'numeric',
     ],
   ];
 
@@ -114,7 +114,7 @@ function azure_search_settings_views_data() {
     'title' => t('Metadata Word Count'),
     'help' => t('Metadata Word Count that is returned in the search criteria.'),
     'field' => [
-      'id' => 'standard',
+      'id' => 'numeric',
     ],
   ];
 
