@@ -15,6 +15,7 @@ function azure_search_settings_views_data() {
   ];
 
   // Fields.
+  //TODO - Need to find a way to accomodate dates in the setup in a way that makes Drupal happy.
   $data['azure_search_settings']['content'] = [
     'title' => t('Content'),
     'help' => t('Content that is returned in the search criteria.'),

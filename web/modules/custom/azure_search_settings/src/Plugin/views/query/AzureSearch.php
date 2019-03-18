@@ -35,6 +35,10 @@ class AzureSearch extends QueryPluginBase {
 
     $index = 0;
 
+    /*$this->messenger()
+      ->addStatus($this->t('Row count value: ' . print_r($view)));*/
+
+
     $json_file = file_get_contents(getcwd() . '/example.json');
     $azure_search = json_decode($json_file);
 
@@ -107,6 +111,7 @@ class AzureSearch extends QueryPluginBase {
       if ($search_row->merged_content != NULL) {
         $row['merged_content'] = $search_row->merged_content;
       }
+
 
       $this->messenger()
         ->addStatus($this->t('Search Row value: ' . $search_row->metadata_page_count));
