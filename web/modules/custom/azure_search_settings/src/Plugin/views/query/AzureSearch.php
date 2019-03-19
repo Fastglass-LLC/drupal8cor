@@ -6,6 +6,9 @@ use Drupal\views\Plugin\views\query\QueryPluginBase;
 use Drupal\views\ResultRow;
 use Drupal\views\ViewExecutable;
 use http\Exception;
+use GuzzleHttp\Pool;
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
 
 
 /**
@@ -33,110 +36,102 @@ class AzureSearch extends QueryPluginBase {
    */
   public function execute(ViewExecutable $view) {
 
-    $index = 0;
-
-    /*$this->messenger()
-      ->addStatus($this->t('Row count value: ' . print_r($view)));*/
+    try {
 
 
-    $json_file = file_get_contents(getcwd() . '/example.json');
-    $azure_search = json_decode($json_file);
+      $index = 0;
+      $config = \Drupal::config('azure_search_settings.settings');
+      $client = new Client();
 
-
-    /*try {
-      $this->messenger()
-        ->addStatus($this->t('Row count value: ' . $azure_search['@odata.count']));
-    } catch (\Exception $e) {
-      $this->messenger()->addStatus($this->t($e->getMessage()));
-    }*/
-
-
-    foreach ($azure_search->value as $search_row) {
-      if ($search_row->content != NULL) {
-        $row['content'] = $search_row->content;
+      if (strlen($config->get('endpoint')) == 0){
+        throw new \Exception("You must set the 'endpoint' value in the Azure Search Settings page in order for the View to work properly");
       }
 
-      if ($search_row->metadata_storage_content_type != NULL) {
-        $row['metadata_storage_content_type'] = $search_row->metadata_storage_content_type;
+      if (strlen($config->get('api-key')) == 0){
+        throw new \Exception("You must set the 'api-key' value in the Azure Search Settings page in order for the View to work properly");
       }
 
-      if ($search_row->metadata_storage_size != NULL) {
-        $row['metadata_storage_size'] = $search_row->metadata_storage_size;
+      $request = new Request(
+        "POST",
+        "https://" . $config->get('endpoint') . ".search.windows.net/indexes/processed-images-index/docs/search?api-version=2017-11-11",
+        [
+          "api-key" => $config->get('api-key'),
+          "content-type" => "application/json",
+        ],
+        "{\n    \"search\": \"merged_content:CEDING COMPANY and metadata_storage_name:dex9*\",\n\t\"select\":\"metadata_storage_content_type,metadata_storage_size,metadata_storage_last_modified,metadata_storage_name,metadata_storage_path,metadata_content_type,people,organizations,locations,keyphrases,content,merged_content\",\n\"queryType\": \"full\",\n\"searchMode\": \"all\",\n\"highlight\":\"merged_content-5\"\n\n}");
+
+      $response = $client->send($request);
+
+      $azure_search = json_decode($response->getBody());
+
+      foreach ($azure_search->value as $search_row) {
+        if ($search_row->content != NULL) {
+          $row['content'] = $search_row->content;
+        }
+
+        if ($search_row->metadata_storage_content_type != NULL) {
+          $row['metadata_storage_content_type'] = $search_row->metadata_storage_content_type;
+        }
+
+        if ($search_row->metadata_storage_size != NULL) {
+          $row['metadata_storage_size'] = $search_row->metadata_storage_size;
+        }
+
+        if ($search_row->metadata_storage_last_modified != NULL) {
+          $row['metadata_storage_last_modified'] = $search_row->metadata_storage_last_modified;
+        }
+
+        if ($search_row->metadata_storage_name != NULL) {
+          $row['metadata_storage_name'] = $search_row->metadata_storage_name;
+        }
+
+        if ($search_row->metadata_storage_path != NULL) {
+          $row['metadata_storage_path'] = $search_row->metadata_storage_path;
+        }
+
+        if ($search_row->metadata_content_type != NULL) {
+          $row['metadata_content_type'] = $search_row->metadata_content_type;
+        }
+
+        if ($search_row->metadata_author != NULL) {
+          $row['metadata_author'] = $search_row->metadata_author;
+        }
+
+        if ($search_row->metadata_character_count != NULL) {
+          $row['metadata_character_count'] = $search_row->metadata_character_count;
+        }
+
+        if ($search_row->metadata_creation_date != NULL) {
+          $row['metadata_creation_date'] = $search_row->metadata_creation_date;
+        }
+
+        if ($search_row->metadata_last_modified != NULL) {
+          $row['metadata_last_modified'] = $search_row->metadata_last_modified;
+        }
+
+        if ($search_row->metadata_page_count != NULL) {
+          $row['metadata_page_count'] = $search_row->metadata_page_count;
+        }
+
+        if ($search_row->metadata_word_count != NULL) {
+          $row['metadata_word_count'] = $search_row->metadata_word_count;
+        }
+
+        if ($search_row->language != NULL) {
+          $row['language'] = $search_row->language;
+        }
+
+        if ($search_row->merged_content != NULL) {
+          $row['merged_content'] = $search_row->merged_content;
+        }
+
+        $row['index'] = $index;
+        $view->result[] = new ResultRow($row);
+        $index++;
       }
-
-      if ($search_row->metadata_storage_last_modified != NULL) {
-        $row['metadata_storage_last_modified'] = $search_row->metadata_storage_last_modified;
-      }
-
-      if ($search_row->metadata_storage_name != NULL) {
-        $row['metadata_storage_name'] = $search_row->metadata_storage_name;
-      }
-
-      if ($search_row->metadata_storage_path != NULL) {
-        $row['metadata_storage_path'] = $search_row->metadata_storage_path;
-      }
-
-      if ($search_row->metadata_content_type != NULL) {
-        $row['metadata_content_type'] = $search_row->metadata_content_type;
-      }
-
-      if ($search_row->metadata_author != NULL) {
-        $row['metadata_author'] = $search_row->metadata_author;
-      }
-
-      if ($search_row->metadata_character_count != NULL) {
-        $row['metadata_character_count'] = $search_row->metadata_character_count;
-      }
-
-      if ($search_row->metadata_creation_date != NULL) {
-        $row['metadata_creation_date'] = $search_row->metadata_creation_date;
-      }
-
-      if ($search_row->metadata_last_modified != NULL) {
-        $row['metadata_last_modified'] = $search_row->metadata_last_modified;
-      }
-
-      if ($search_row->metadata_page_count != NULL) {
-        $row['metadata_page_count'] = $search_row->metadata_page_count;
-      }
-
-      if ($search_row->metadata_word_count != NULL) {
-        $row['metadata_word_count'] = $search_row->metadata_word_count;
-      }
-
-      if ($search_row->language != NULL) {
-        $row['language'] = $search_row->language;
-      }
-
-      if ($search_row->merged_content != NULL) {
-        $row['merged_content'] = $search_row->merged_content;
-      }
-
-
-      $this->messenger()
-        ->addStatus($this->t('Search Row value: ' . $search_row->metadata_page_count));
-      $row['index'] = $index;
-      $view->result[] = new ResultRow($row);
-      $index++;
+    } catch (\Exception $exception) {
+      \Drupal::logger('azure_search_settings')->error($exception->getMessage());
     }
-
-    /*foreach ($azure_search->value as $search_row) {
-      //$this->messenger()->addStatus($this->t('Search Row value: '.));
-      $row['index'] = $index;
-      $row['content'] = 'crap';// $search_row->metadata_storage_name;
-      $view->result[] = new ResultRow($row);
-      $index++;
-    }
-
-
-    $this->messenger()
-      ->addStatus($this->t('Index value: '.$index));*/
-
-    /*for ($index = 1; $index <= 8; $index++) {
-    $row['content'] = 'Document Name ' . $index;
-    $row['index'] = $index;
-    $view->result[] = new ResultRow($row);
-  }*/
 
     parent::execute($view);
     //TODO: Change the autogenerated stub
