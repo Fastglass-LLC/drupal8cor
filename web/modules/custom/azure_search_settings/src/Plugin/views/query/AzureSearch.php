@@ -38,6 +38,8 @@ class AzureSearch extends QueryPluginBase {
 
     try {
 
+      //Get the base table of the view.  This will be the Azure Index that has been defined.
+      $azure_index = key($view->getBaseTables());
 
       $index = 0;
       $config = \Drupal::config('azure_search_settings.settings');
@@ -53,7 +55,7 @@ class AzureSearch extends QueryPluginBase {
 
       $request = new Request(
         "POST",
-        "https://" . $config->get('endpoint') . ".search.windows.net/indexes/processed-images-index/docs/search?api-version=2017-11-11",
+        "https://" . $config->get('endpoint') . ".search.windows.net/indexes/".$azure_index."/docs/search?api-version=".$config->get('api-version'),
         [
           "api-key" => $config->get('api-key'),
           "content-type" => "application/json",
