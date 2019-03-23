@@ -81,7 +81,50 @@ class SettingsForm extends ConfigFormBase {
       '#description' => t('Clicking this button will resync the settings for all stored Indexes, Synonyms, and their related Fields within your Azure Search instance.'),
     ];
 
+    //TODO - Need to remove this.
+    $form['azure_search_indexes']['build_views'] = [
+      '#type' => 'submit',
+      '#value' => 'Build Views',
+      '#submit' => ['::buildViews'],
+      '#description' => t('Clicking this button will get all the data needed build the views information.'),
+    ];
+
     return parent::buildForm($form, $form_state);
+  }
+
+  //TODO - Need to get this moved to the View Constriction area.  Just using this area for testing.
+  /**
+   * This is the buildViews function.
+   */
+  public function buildViews(array &$form, FormStateInterface $form_state) {
+    $config = \Drupal::config('azure_search_settings.settings');
+
+    $index_nids = \Drupal::entityQuery('node')
+      ->condition('type', 'azure_search_index')
+      ->execute();
+
+    $index_nodes = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadMultiple($index_nids);
+
+    foreach ($index_nodes as $index_node) {
+      $this->messenger()
+        ->addStatus($this->t('Node Title: ' . $index_node->label() . ', Node ID: ' . $index_node->id()));
+
+      $nids_fields = \Drupal::entityQuery('node')
+        ->condition('type', 'azure_search_index_field')
+        ->condition('field_azure_search_index_field', $index_node->id())
+        ->execute();
+
+      $fields = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->loadMultiple($nids_fields);
+
+      foreach ($fields as $field){
+        $this->messenger()
+          ->addStatus($this->t('Child Node Title: ' . $field->label() . ', Node ID: ' . $field->id()));
+      }
+    }
   }
 
   /**
