@@ -25,3 +25,6 @@
 
 # Ignore .env files as they are personal
 /.env
+
+#Ignore the web.config file that comes with Drupal updates
+web/web.config
