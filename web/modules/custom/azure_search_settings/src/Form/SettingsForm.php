@@ -74,6 +74,32 @@ class SettingsForm extends ConfigFormBase {
       '#description' => t('This is the api key of endpoint of your Azure Search service.'),
     ];
 
+    $form['azure_search_settings']['enable-text-highlighting'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Enable Text Highlighting'),
+      '#default_value' => $this->config('azure_search_settings.settings')
+        ->get('enable-text-highlighting'),
+      '#description' => t('This setting enables text highlighting in searches for your Azure Search service.'),
+    ];
+
+    $form['azure_search_settings']['highlight-pre-tag'] = [
+      '#type' => 'textfield',
+      '#title' => t('Highlight Pre Tag'),
+      '#default_value' => $this->config('azure_search_settings.settings')
+        ->get('highlight-pre-tag'),
+      '#size' => 40,
+      '#description' => t('This is the highlight pre-tag used search highlighting for your Azure Search service.'),
+    ];
+
+    $form['azure_search_settings']['highlight-post-tag'] = [
+      '#type' => 'textfield',
+      '#title' => t('Highlight Post Tag'),
+      '#default_value' => $this->config('azure_search_settings.settings')
+        ->get('highlight-post-tag'),
+      '#size' => 40,
+      '#description' => t('This is the highlight post-tag used search highlighting for your Azure Search service.'),
+    ];
+
     $form['azure_search_indexes']['resync_indexes'] = [
       '#type' => 'submit',
       '#value' => 'Resync Indexes and Synonyms',
