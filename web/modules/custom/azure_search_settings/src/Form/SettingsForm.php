@@ -304,6 +304,9 @@ class SettingsForm extends ConfigFormBase {
       ->set('endpoint', $form_state->getValue('endpoint'))
       ->set('api-version', $form_state->getValue('api-version'))
       ->set('api-key', $form_state->getValue('api-key'))
+      ->set('enable-text-highlighting', $form_state->getValue('enable-text-highlighting'))
+      ->set('highlight-pre-tag', $form_state->getValue('highlight-pre-tag'))
+      ->set('highlight-post-tag', $form_state->getValue('highlight-post-tag'))
       ->save();
     parent::submitForm($form, $form_state);
   }

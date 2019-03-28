@@ -53,6 +53,18 @@ class AzureSearch extends QueryPluginBase {
         throw new \Exception("You must set the 'api-key' value in the Azure Search Settings page in order for the View to work properly");
       }
 
+      $azure_search_parameters = array();
+      $azure_search_parameters['search'] = "merged_content:CEDING COMPANY and metadata_storage_name:dex9*";
+      $azure_search_parameters['select'] = "metadata_storage_content_type,metadata_storage_size,metadata_storage_last_modified,metadata_storage_name,metadata_storage_path,metadata_content_type,people,organizations,locations,keyphrases,content,merged_content";
+      $azure_search_parameters['queryType'] = "full";
+      $azure_search_parameters['searchMode'] = "all";
+
+      if ($config->get('enable-text-highlighting') == TRUE){
+        $azure_search_parameters['highlight'] = "merged_content-5";
+        $azure_search_parameters['highlightPreTag'] = $config->get('highlight-pre-tag');
+        $azure_search_parameters['highlightPostTag'] = $config->get('highlight-post-tag');
+      }
+
       $request = new Request(
         "POST",
         "https://" . $config->get('endpoint') . ".search.windows.net/indexes/".$azure_index."/docs/search?api-version=".$config->get('api-version'),
@@ -60,7 +72,8 @@ class AzureSearch extends QueryPluginBase {
           "api-key" => $config->get('api-key'),
           "content-type" => "application/json",
         ],
-        "{\n    \"search\": \"merged_content:CEDING COMPANY and metadata_storage_name:dex9*\",\n\t\"select\":\"metadata_storage_content_type,metadata_storage_size,metadata_storage_last_modified,metadata_storage_name,metadata_storage_path,metadata_content_type,people,organizations,locations,keyphrases,content,merged_content\",\n\"queryType\": \"full\",\n\"searchMode\": \"all\",\n\"highlight\":\"merged_content-5\"\n\n}");
+        json_encode($azure_search_parameters)
+      );
 
       $response = $client->send($request);
 

@@ -186,7 +186,7 @@ function azure_search_settings_views_data() {
           ];
         }
 
-        if ($field->label() == 'language') {
+        if ($field->label() == 'merged_content') {
           $data[$index_node->label()]['merged_content'] = [
             'title' => t('Merged Content'),
             'help' => t('Merged Content that is returned in the search criteria.'),
