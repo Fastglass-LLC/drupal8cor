@@ -45,29 +45,40 @@ class AzureSearch extends QueryPluginBase {
       $config = \Drupal::config('azure_search_settings.settings');
       $client = new Client();
 
-      if (strlen($config->get('endpoint')) == 0){
+      if (strlen($config->get('endpoint')) == 0) {
         throw new \Exception("You must set the 'endpoint' value in the Azure Search Settings page in order for the View to work properly");
       }
 
-      if (strlen($config->get('api-key')) == 0){
+      if (strlen($config->get('api-key')) == 0) {
         throw new \Exception("You must set the 'api-key' value in the Azure Search Settings page in order for the View to work properly");
       }
 
-      $azure_search_parameters = array();
+      //Get the search fields defined in the view to get just those fields from the Azure Search request
+      $search_fields = '';
+      $view_fields = $view->getQuery()->view->getDisplay()->getFieldLabels();
+
+      foreach (array_keys($view_fields) as $view_field) {
+        $search_fields = $search_fields . $view_field . ',';
+      }
+      $search_fields = rtrim($search_fields, ',');
+
+      //Build the array for the query to Azure Search
+      $azure_search_parameters = [];
       $azure_search_parameters['search'] = "merged_content:CEDING COMPANY and metadata_storage_name:dex9*";
-      $azure_search_parameters['select'] = "metadata_storage_content_type,metadata_storage_size,metadata_storage_last_modified,metadata_storage_name,metadata_storage_path,metadata_content_type,people,organizations,locations,keyphrases,content,merged_content";
+      $azure_search_parameters['select'] = $search_fields;
       $azure_search_parameters['queryType'] = "full";
       $azure_search_parameters['searchMode'] = "all";
 
-      if ($config->get('enable-text-highlighting') == TRUE){
+      if ($config->get('enable-text-highlighting') == TRUE) {
         $azure_search_parameters['highlight'] = "merged_content-5";
         $azure_search_parameters['highlightPreTag'] = $config->get('highlight-pre-tag');
         $azure_search_parameters['highlightPostTag'] = $config->get('highlight-post-tag');
       }
 
+      //Request to Azure Search per an HTTP POST call
       $request = new Request(
         "POST",
-        "https://" . $config->get('endpoint') . ".search.windows.net/indexes/".$azure_index."/docs/search?api-version=".$config->get('api-version'),
+        "https://" . $config->get('endpoint') . ".search.windows.net/indexes/" . $azure_index . "/docs/search?api-version=" . $config->get('api-version'),
         [
           "api-key" => $config->get('api-key'),
           "content-type" => "application/json",
