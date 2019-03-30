@@ -196,6 +196,9 @@ function azure_search_settings_views_data() {
             'field' => [
               'id' => 'standard',
             ],
+            'filter'=>[
+              'id'=>'merged_content_id'
+            ]
           ];
         }
       }
