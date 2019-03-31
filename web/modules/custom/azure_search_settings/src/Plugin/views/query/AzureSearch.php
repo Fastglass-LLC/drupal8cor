@@ -53,6 +53,7 @@ class AzureSearch extends QueryPluginBase {
         throw new \Exception("You must set the 'api-key' value in the Azure Search Settings page in order for the View to work properly");
       }
 
+      //Build out the Azure Search parameters from exposed search parameters.
       $filters = [];
 
       if (isset($this->where)) {
@@ -60,18 +61,32 @@ class AzureSearch extends QueryPluginBase {
           foreach ($where['conditions'] as $condition) {
             // Remove dot from beginning of the string.
             $field_name = ltrim($condition['field'], '.');
-            $filters[$field_name] = $condition['value'];
+            $filters[$field_name] = $condition['value'][0];
           }
         }
       }
 
-      dpm($filters);
+      $azure_query = '';
+
+      foreach (array_keys($filters) as $filter) {
+        if (strlen($filters[$filter]) > 0) {
+          $azure_query = $azure_query . $filter . ':' . $filters[$filter] . ' and ';
+        }
+      }
+
+      $pos = strpos($azure_query, ' and ');
+      if ($pos !== FALSE) {
+        $azure_query = substr($azure_query, 0, strlen($azure_query) - 5);
+      }
+
+      dpm($azure_query);
+
 
       // We currently only support uid, ignore any other filters that may be
       // configured.
       //$uid = isset($filters['uid']) ? $filters['uid'] : NULL;
       //if ($access_tokens = $this->fitbitAccessTokenManager->loadMultipleAccessToken([$uid])) {
-        // Query remote API and return results ...
+      // Query remote API and return results ...
       //}
 
       //Get the search fields defined in the view to get just those fields from the Azure Search request
@@ -85,7 +100,8 @@ class AzureSearch extends QueryPluginBase {
 
       //Build the array for the query to Azure Search
       $azure_search_parameters = [];
-      $azure_search_parameters['search'] = "merged_content:CEDING COMPANY and metadata_storage_name:dex9*";
+      //$azure_search_parameters['search'] = "merged_content:CEDING COMPANY and metadata_storage_name:dex9*";
+      $azure_search_parameters['search'] = $azure_query;
       $azure_search_parameters['select'] = $search_fields;
       $azure_search_parameters['queryType'] = "full";
       $azure_search_parameters['searchMode'] = "all";
@@ -185,8 +201,10 @@ class AzureSearch extends QueryPluginBase {
   }
 
   /**
-   * Adds a simple condition to the query. Collect data on the configured filter
-   * criteria so that we can appropriately apply it in the query() and execute()
+   * Adds a simple condition to the query. Collect data on the configured
+   * filter
+   * criteria so that we can appropriately apply it in the query() and
+   * execute()
    * methods.
    *
    * @param $group
@@ -196,12 +214,13 @@ class AzureSearch extends QueryPluginBase {
    * @param $field
    *   The name of the field to check.
    * @param $value
-   *   The value to test the field against. In most cases, this is a scalar. For more
-   *   complex options, it is an array. The meaning of each element in the array is
-   *   dependent on the $operator.
+   *   The value to test the field against. In most cases, this is a scalar.
+   *   For more complex options, it is an array. The meaning of each element in
+   *   the array is dependent on the $operator.
    * @param $operator
    *   The comparison operator, such as =, <, or >=. It also accepts more
-   *   complex options such as IN, LIKE, LIKE BINARY, or BETWEEN. Defaults to =.
+   *   complex options such as IN, LIKE, LIKE BINARY, or BETWEEN. Defaults to
+   *   =.
    *   If $field is a string you have to use 'formula' here.
    *
    * @see \Drupal\Core\Database\Query\ConditionInterface::condition()
