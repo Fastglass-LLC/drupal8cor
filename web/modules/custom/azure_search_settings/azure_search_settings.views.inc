@@ -93,6 +93,9 @@ function azure_search_settings_views_data() {
             'field' => [
               'id' => 'standard',
             ],
+            'filter'=>[
+              'id'=>'metadata_storage_name_id'
+            ]
           ];
         }
 
@@ -193,6 +196,9 @@ function azure_search_settings_views_data() {
             'field' => [
               'id' => 'standard',
             ],
+            'filter'=>[
+              'id'=>'merged_content_id'
+            ]
           ];
         }
       }
