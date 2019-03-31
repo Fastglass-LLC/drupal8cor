@@ -55,6 +55,7 @@ class AzureSearch extends QueryPluginBase {
 
       //Build out the Azure Search parameters from exposed search parameters.
       $filters = [];
+      $azure_query = '';
 
       if (isset($this->where)) {
         foreach ($this->where as $where_group => $where) {
@@ -65,8 +66,6 @@ class AzureSearch extends QueryPluginBase {
           }
         }
       }
-
-      $azure_query = '';
 
       foreach (array_keys($filters) as $filter) {
         if (strlen($filters[$filter]) > 0) {
@@ -79,15 +78,12 @@ class AzureSearch extends QueryPluginBase {
         $azure_query = substr($azure_query, 0, strlen($azure_query) - 5);
       }
 
-      dpm($azure_query);
-
-
-      // We currently only support uid, ignore any other filters that may be
-      // configured.
-      //$uid = isset($filters['uid']) ? $filters['uid'] : NULL;
-      //if ($access_tokens = $this->fitbitAccessTokenManager->loadMultipleAccessToken([$uid])) {
-      // Query remote API and return results ...
-      //}
+      dpm(strlen($azure_query));
+      //Bypass the rest of the code if there are no search parameters defined.
+      if (strlen($azure_query) == 0){
+        parent::execute($view);
+        return;
+      }
 
       //Get the search fields defined in the view to get just those fields from the Azure Search request
       $search_fields = '';
