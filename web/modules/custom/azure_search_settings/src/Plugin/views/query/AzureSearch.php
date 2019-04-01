@@ -101,6 +101,7 @@ class AzureSearch extends QueryPluginBase {
       $azure_search_parameters['select'] = $search_fields;
       $azure_search_parameters['queryType'] = "full";
       $azure_search_parameters['searchMode'] = "all";
+      $azure_search_parameters['count'] = TRUE;
 
       if ($config->get('enable-text-highlighting') == TRUE) {
         $azure_search_parameters['highlight'] = "merged_content-5";
@@ -130,6 +131,12 @@ class AzureSearch extends QueryPluginBase {
       $response = $client->send($request);
 
       $azure_search = json_decode($response->getBody());
+
+      //Set Pager information in order to use the default paging functionality from Drupal.
+      $azure_search_array = json_decode($response->getBody(),TRUE);
+      $view->getPager()->useCountQuery(FALSE);
+      $view->getPager()->total_items=$azure_search_array['@odata.count'];
+      $view->getPager()->updatePageInfo();
 
       foreach ($azure_search->value as $search_row) {
         if ($search_row->content != NULL) {
