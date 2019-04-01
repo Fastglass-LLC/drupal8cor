@@ -274,6 +274,10 @@ class SettingsForm extends ConfigFormBase {
 
     $this->messenger()
       ->addStatus($this->t('Added  ' . $x . ' Index node(s), ' . $y . ' Field node(s), and ' . $z . ' Synonym node(s) as defined in the Azure Search endpoint.'));
+
+    //Clearing all caches to provide instant availability to build Views.
+    drupal_flush_all_caches();
+    $this->messenger()->addStatus($this->t('Caches cleared.'));
   }
 
   /**
