@@ -78,9 +78,9 @@ class AzureSearch extends QueryPluginBase {
         $azure_query = substr($azure_query, 0, strlen($azure_query) - 5);
       }
 
-      dpm(strlen($azure_query));
+
       //Bypass the rest of the code if there are no search parameters defined.
-      if (strlen($azure_query) == 0){
+      if (strlen($azure_query) == 0) {
         parent::execute($view);
         return;
       }
@@ -101,11 +101,20 @@ class AzureSearch extends QueryPluginBase {
       $azure_search_parameters['select'] = $search_fields;
       $azure_search_parameters['queryType'] = "full";
       $azure_search_parameters['searchMode'] = "all";
+      $azure_search_parameters['count'] = TRUE;
 
       if ($config->get('enable-text-highlighting') == TRUE) {
         $azure_search_parameters['highlight'] = "merged_content-5";
         $azure_search_parameters['highlightPreTag'] = $config->get('highlight-pre-tag');
         $azure_search_parameters['highlightPostTag'] = $config->get('highlight-post-tag');
+      }
+
+      //Get the paging information
+      if ($view->getPager()->usePager()) {
+        $azure_search_parameters['skip'] = ($view->getPager()->current_page) * $view->getPager()
+            ->getItemsPerPage();
+        $azure_search_parameters['top'] = $view->getPager()
+          ->getItemsPerPage();
       }
 
       //Request to Azure Search per an HTTP POST call
@@ -122,6 +131,12 @@ class AzureSearch extends QueryPluginBase {
       $response = $client->send($request);
 
       $azure_search = json_decode($response->getBody());
+
+      //Set Pager information in order to use the default paging functionality from Drupal.
+      $azure_search_array = json_decode($response->getBody(),TRUE);
+      $view->getPager()->useCountQuery(FALSE);
+      $view->getPager()->total_items=$azure_search_array['@odata.count'];
+      $view->getPager()->updatePageInfo();
 
       foreach ($azure_search->value as $search_row) {
         if ($search_row->content != NULL) {
