@@ -67,7 +67,7 @@ class SettingsForm extends ConfigFormBase {
     ];
 
     $form['azure_blob_storage']['blob-storage-connection-string'] = [
-      '#type' => 'textfield',
+      '#type' => 'textarea',
       '#title' => t('Azure Blob Storage Connection String'),
       '#default_value' => $this->config('azure_storage_settings.settings')
         ->get('blob-storage-connection-string'),
