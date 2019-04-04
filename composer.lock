@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a6693ef5725e1a90ef85d58b3caf3bea",
+    "content-hash": "aca7d5cbef166f50f6ceab3040f22797",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2672,7 +2672,7 @@
             "version": "3.2.0",
             "source": {
                 "type": "git",
-                "url": "https://git.drupal.org/project/ctools",
+                "url": "https://git.drupalcode.org/project/ctools.git",
                 "reference": "8.x-3.2"
             },
             "dist": {
@@ -2765,7 +2765,7 @@
             "version": "dev-1.x",
             "source": {
                 "type": "git",
-                "url": "https://git.drupal.org/project/default_content",
+                "url": "https://git.drupalcode.org/project/default_content.git",
                 "reference": "13f97c93eeaf4da9f84cc3fdcc0c91d32284132c"
             },
             "require": {
@@ -2836,7 +2836,7 @@
             "version": "2.4.0",
             "source": {
                 "type": "git",
-                "url": "https://git.drupal.org/project/jsonapi",
+                "url": "https://git.drupalcode.org/project/jsonapi.git",
                 "reference": "8.x-2.4"
             },
             "dist": {
@@ -2900,7 +2900,7 @@
             "version": "4.4.0",
             "source": {
                 "type": "git",
-                "url": "https://git.drupal.org/project/panels",
+                "url": "https://git.drupalcode.org/project/panels.git",
                 "reference": "8.x-4.4"
             },
             "dist": {
@@ -2985,7 +2985,7 @@
             "version": "1.3.0",
             "source": {
                 "type": "git",
-                "url": "https://git.drupal.org/project/pathauto",
+                "url": "https://git.drupalcode.org/project/pathauto.git",
                 "reference": "8.x-1.3"
             },
             "dist": {
@@ -3046,7 +3046,7 @@
             "version": "1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://git.drupal.org/project/redis",
+                "url": "https://git.drupalcode.org/project/redis.git",
                 "reference": "8.x-1.1"
             },
             "dist": {
@@ -3105,7 +3105,7 @@
             "version": "1.5.0",
             "source": {
                 "type": "git",
-                "url": "https://git.drupal.org/project/token",
+                "url": "https://git.drupalcode.org/project/token.git",
                 "reference": "8.x-1.5"
             },
             "dist": {
@@ -3922,6 +3922,226 @@
                 "xml"
             ],
             "time": "2019-03-10T11:41:28+00:00"
+        },
+        {
+            "name": "microsoft/azure-storage-blob",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Azure/azure-storage-blob-php.git",
+                "reference": "6fcef8b68227b190854296d5d159aa666418873d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Azure/azure-storage-blob-php/zipball/6fcef8b68227b190854296d5d159aa666418873d",
+                "reference": "6fcef8b68227b190854296d5d159aa666418873d",
+                "shasum": ""
+            },
+            "require": {
+                "microsoft/azure-storage-common": "~1.3.0",
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MicrosoftAzure\\Storage\\Blob\\": "src/Blob"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Azure Storage PHP Client Library",
+                    "email": "dmsh@microsoft.com"
+                }
+            ],
+            "description": "This project provides a set of PHP client libraries that make it easy to access Microsoft Azure Storage Blob APIs.",
+            "keywords": [
+                "azure",
+                "blob",
+                "php",
+                "sdk",
+                "storage"
+            ],
+            "time": "2019-03-26T10:04:16+00:00"
+        },
+        {
+            "name": "microsoft/azure-storage-common",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Azure/azure-storage-common-php.git",
+                "reference": "154c2c38203297035fb718689b691b15adfd49ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Azure/azure-storage-common-php/zipball/154c2c38203297035fb718689b691b15adfd49ab",
+                "reference": "154c2c38203297035fb718689b691b15adfd49ab",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~6.0",
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MicrosoftAzure\\Storage\\Common\\": "src/Common"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Azure Storage PHP Client Library",
+                    "email": "dmsh@microsoft.com"
+                }
+            ],
+            "description": "This project provides a set of common code shared by Azure Storage Blob, Table, Queue and File PHP client libraries.",
+            "keywords": [
+                "azure",
+                "common",
+                "php",
+                "sdk",
+                "storage"
+            ],
+            "time": "2019-03-26T09:52:54+00:00"
+        },
+        {
+            "name": "microsoft/azure-storage-file",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Azure/azure-storage-file-php.git",
+                "reference": "93c5a8a12b4215734b3e18106d94554f036feb9f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Azure/azure-storage-file-php/zipball/93c5a8a12b4215734b3e18106d94554f036feb9f",
+                "reference": "93c5a8a12b4215734b3e18106d94554f036feb9f",
+                "shasum": ""
+            },
+            "require": {
+                "microsoft/azure-storage-common": "~1.3",
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MicrosoftAzure\\Storage\\File\\": "src/File"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Azure Storage PHP Client Library",
+                    "email": "dmsh@microsoft.com"
+                }
+            ],
+            "description": "This project provides a set of PHP client libraries that make it easy to access Microsoft Azure Storage File APIs.",
+            "keywords": [
+                "azure",
+                "file",
+                "php",
+                "sdk",
+                "storage"
+            ],
+            "time": "2019-03-26T10:08:59+00:00"
+        },
+        {
+            "name": "microsoft/azure-storage-queue",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Azure/azure-storage-queue-php.git",
+                "reference": "161eda43ec7df150f36648ad7db780fffd8bf3da"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Azure/azure-storage-queue-php/zipball/161eda43ec7df150f36648ad7db780fffd8bf3da",
+                "reference": "161eda43ec7df150f36648ad7db780fffd8bf3da",
+                "shasum": ""
+            },
+            "require": {
+                "microsoft/azure-storage-common": "~1.3.0",
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MicrosoftAzure\\Storage\\Queue\\": "src/Queue"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Azure Storage PHP Client Library",
+                    "email": "dmsh@microsoft.com"
+                }
+            ],
+            "description": "This project provides a set of PHP client libraries that make it easy to access Microsoft Azure Storage Queue APIs.",
+            "keywords": [
+                "azure",
+                "php",
+                "queue",
+                "sdk",
+                "storage"
+            ],
+            "time": "2019-03-26T10:07:11+00:00"
+        },
+        {
+            "name": "microsoft/azure-storage-table",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Azure/azure-storage-table-php.git",
+                "reference": "eb00d1fbe12aea6fc4c6a7bf256250683bc37388"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Azure/azure-storage-table-php/zipball/eb00d1fbe12aea6fc4c6a7bf256250683bc37388",
+                "reference": "eb00d1fbe12aea6fc4c6a7bf256250683bc37388",
+                "shasum": ""
+            },
+            "require": {
+                "microsoft/azure-storage-common": "~1.1",
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MicrosoftAzure\\Storage\\Table\\": "src/Table"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Azure Storage PHP Client Library",
+                    "email": "dmsh@microsoft.com"
+                }
+            ],
+            "description": "This project provides a set of PHP client libraries that make it easy to access Microsoft Azure Storage Table APIs.",
+            "keywords": [
+                "azure",
+                "php",
+                "sdk",
+                "storage",
+                "table"
+            ],
+            "time": "2018-04-26T07:50:46+00:00"
         },
         {
             "name": "nikic/php-parser",
