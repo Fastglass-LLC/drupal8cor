@@ -10,5 +10,10 @@
     "issues": "https://www.drupal.org/project/issues/azure_storage_settings",
     "source": "http://cgit.drupalcode.org/azure_storage_settings"
   },
-  "require": { }
+  "require": {
+    "microsoft/azure-storage-blob": "*",
+    "microsoft/azure-storage-table": "*",
+    "microsoft/azure-storage-queue": "*",
+    "microsoft/azure-storage-file": "*"
+  }
 }
