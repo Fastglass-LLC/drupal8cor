@@ -89,39 +89,38 @@ class SettingsForm extends ConfigFormBase {
   public function populateContainers(array &$form, FormStateInterface $form_state) {
 
     $config = \Drupal::config('azure_storage_settings.settings');
-    //$blobClient = BlobRestProxy::createBlobService($config->get('blob-storage-connection-string'));
-
-dpm($config->get('blob-storage-connection-string'));
-    $connectionString = 'DefaultEndpointsProtocol=https;AccountName=bswbasefilestorage;AccountKey=sX34lRAFSEf7LMGdOw951/t8INDjfn2aSlRKEg8kLLsKjasE4NFspq6mST8tctQO+jMlfdZSErL4kVyeMoqgWw==;EndpointSuffix=core.windows.net';
-    $blobClient = BlobRestProxy::createBlobService($connectionString);
-
-    dpm('im here');
-
-    $output_string = '';
+    $blobClient = BlobRestProxy::createBlobService($config->get('blob-storage-connection-string'));
 
     try {
       // List blobs.
       $listBlobsOptions = new ListBlobsOptions();
-      //$listBlobsOptions->setPrefix("base-documents");
-
 
       // Setting max result to 1 is just to demonstrate the continuation token.
       // It is not the recommended value in a product environment.
-      $listBlobsOptions->setMaxResults(1);
+      //$listBlobsOptions->setMaxResults(50);
 
       $blobContainers = $blobClient->listContainers();
       $blobContainerArray = $blobContainers->getContainers();
 
-      $container_output='';
+      $x=0;
       foreach ($blobContainerArray as $container)
       {
-        $container_output = $container_output. "Container: " . $container->getName().PHP_EOL;
+        //Add the Azure Container to Drupal.
+        $node = Node::create([
+          'type' => 'azure_blob_container',
+          'title' => $container->getName(),
+          'path' => ['alias' => '/container/' . $container->getName()],
+        ]);
+        $node->save();
+        $x++;
       }
-      dpm($container_output);
+
+      $this->messenger()->addStatus($this->t($x.' Containers have been synced to the system.'));
 
     } catch (ServiceException $exception) {
       \Drupal::logger('azure_storage_settings')->error($exception->getMessage());
-      dpm($exception);
+      $this->messenger()->
+      $this->messenger()->addError($this->t('An error has occurred.  Please check the logs for additional information.'));
     }
 
   }
