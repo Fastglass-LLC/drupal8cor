@@ -1,0 +1,6 @@
+azure_storage_settings.admin:
+  title: 'Azure Storage Settings'
+  description: 'Manage settings for Azure Storage.'
+  parent: system.admin_config_system
+  route_name: azure_storage_settings.settings_form
+  weight: -51

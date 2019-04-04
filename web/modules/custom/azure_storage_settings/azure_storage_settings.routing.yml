@@ -1,0 +1,7 @@
+azure_storage_settings.settings_form:
+  path: '/admin/config/system/azure-storage-settings'
+  defaults:
+    _title: 'Azure Storage Settings'
+    _form: 'Drupal\azure_storage_settings\Form\SettingsForm'
+  requirements:
+    _permission: 'administer azure_storage_settings configuration'
