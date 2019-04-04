@@ -50,6 +50,7 @@ install:
   - azure_search_settings
   - azure_search_indexes
   - azure_storage_settings
+  - azure_storage_structure
 themes:
   - bartik
   - seven
