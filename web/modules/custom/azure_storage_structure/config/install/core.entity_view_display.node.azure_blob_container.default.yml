@@ -1,0 +1,38 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.azure_blob_container.body
+    - field.field.node.azure_blob_container.field_azure_blob_process_contain
+    - node.type.azure_blob_container
+  module:
+    - text
+    - user
+id: node.azure_blob_container.default
+targetEntityType: node
+bundle: azure_blob_container
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_azure_blob_process_contain:
+    weight: 1
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

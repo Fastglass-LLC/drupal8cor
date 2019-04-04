@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.azure_blob_container
+  module:
+    - text
+id: node.azure_blob_container.body
+field_name: body
+entity_type: node
+bundle: azure_blob_container
+label: 'Container Notes'
+description: 'Put any notes about the Container here.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

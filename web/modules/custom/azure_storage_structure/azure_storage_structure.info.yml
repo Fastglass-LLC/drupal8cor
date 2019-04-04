@@ -1,0 +1,12 @@
+name: 'Azure Storage Structure'
+description: 'This module contains the content types, etc. required to store information on Azure Storage Containers, Blobs, etc.'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - menu_ui
+  - node
+  - path
+  - text
+  - user
+version: 8.x-1.0-alpha

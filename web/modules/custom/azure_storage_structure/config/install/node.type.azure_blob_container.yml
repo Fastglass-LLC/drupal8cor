@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Azure Blob Container'
+type: azure_blob_container
+description: 'This content type contains information about Azure Blob Containers that reside within an Azure Storage area.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true
