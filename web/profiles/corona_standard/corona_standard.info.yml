@@ -49,6 +49,7 @@ install:
   - default_content
   - azure_search_settings
   - azure_search_indexes
+  - azure_storage_settings
 themes:
   - bartik
   - seven

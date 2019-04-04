@@ -1,0 +1,5 @@
+name: 'Azure Storage Settings'
+type: module
+description: 'This module holds the configuration settings required for interacting with the Azure Storage services.'
+core: 8.x
+package: 'Azure'

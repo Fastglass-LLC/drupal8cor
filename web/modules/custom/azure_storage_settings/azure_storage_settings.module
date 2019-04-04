@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains azure_storage_settings.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function azure_storage_settings_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the azure_storage_settings module.
+    case 'help.page.azure_storage_settings':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module holds the configuration settings required for interacting with the Azure Storage services.') . '</p>';
+      return $output;
+
+    default:
+  }
+}

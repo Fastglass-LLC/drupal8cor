@@ -1,0 +1,14 @@
+{
+  "name": "drupal/azure_storage_settings",
+  "type": "drupal-module",
+  "description": "This module holds the configuration settings required for interacting with the Azure Storage services.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/azure_storage_settings",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/azure_storage_settings",
+    "source": "http://cgit.drupalcode.org/azure_storage_settings"
+  },
+  "require": { }
+}
