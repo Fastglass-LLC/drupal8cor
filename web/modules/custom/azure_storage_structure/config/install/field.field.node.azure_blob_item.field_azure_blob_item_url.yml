@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_azure_blob_item_url
+    - node.type.azure_blob_item
+id: node.azure_blob_item.field_azure_blob_item_url
+field_name: field_azure_blob_item_url
+entity_type: node
+bundle: azure_blob_item
+label: 'Blob Item URL'
+description: 'This is the URL of the Azure Blob Item.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_azure_blob_item_size
+    - node.type.azure_blob_item
+id: node.azure_blob_item.field_azure_blob_item_size
+field_name: field_azure_blob_item_size
+entity_type: node
+bundle: azure_blob_item
+label: 'Blob Item Size'
+description: 'This is the size in bytes of the Azure Blob Item.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: !!float 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: float

@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.azure_blob_item
+id: node.azure_blob_item.title
+field_name: title
+entity_type: node
+bundle: azure_blob_item
+label: 'Blob Name'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
