@@ -138,7 +138,7 @@ class SettingsForm extends ConfigFormBase {
 
     $config = \Drupal::config('azure_storage_settings.settings');
     $blobClient = BlobRestProxy::createBlobService($config->get('blob-storage-connection-string'));
-    //$output_string = '';
+
     $x = 0;
     $y = 0;
 
