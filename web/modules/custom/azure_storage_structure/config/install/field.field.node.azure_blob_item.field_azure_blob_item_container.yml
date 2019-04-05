@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_azure_blob_item_container
+    - node.type.azure_blob_container
+    - node.type.azure_blob_item
+id: node.azure_blob_item.field_azure_blob_item_container
+field_name: field_azure_blob_item_container
+entity_type: node
+bundle: azure_blob_item
+label: 'Blob Item Container'
+description: 'This is the Azure Storage Container of the Azure Blob Item.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      azure_blob_container: azure_blob_container
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

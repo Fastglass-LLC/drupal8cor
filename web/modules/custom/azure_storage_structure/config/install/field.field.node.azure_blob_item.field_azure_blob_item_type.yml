@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_azure_blob_item_type
+    - node.type.azure_blob_item
+id: node.azure_blob_item.field_azure_blob_item_type
+field_name: field_azure_blob_item_type
+entity_type: node
+bundle: azure_blob_item
+label: 'Blob Item Type'
+description: 'This is the file type of the Azure Blob Item.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
