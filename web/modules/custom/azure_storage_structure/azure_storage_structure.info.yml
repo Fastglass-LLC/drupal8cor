@@ -3,6 +3,7 @@ description: 'This module contains the content types, etc. required to store inf
 type: module
 core: 8.x
 dependencies:
+  - datetime
   - field
   - menu_ui
   - node
