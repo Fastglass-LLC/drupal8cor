@@ -3,11 +3,13 @@ status: true
 dependencies:
   config:
     - field.field.node.azure_blob_item.field_azure_blob_item_container
+    - field.field.node.azure_blob_item.field_azure_blob_item_last_mod
     - field.field.node.azure_blob_item.field_azure_blob_item_size
     - field.field.node.azure_blob_item.field_azure_blob_item_type
     - field.field.node.azure_blob_item.field_azure_blob_item_url
     - node.type.azure_blob_item
   module:
+    - datetime
     - user
 id: node.azure_blob_item.default
 targetEntityType: node
@@ -21,6 +23,15 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_azure_blob_item_last_mod:
+    weight: 106
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: short
+    third_party_settings: {  }
+    type: datetime_default
     region: content
   field_azure_blob_item_size:
     weight: 102
