@@ -39,6 +39,12 @@ class SettingsForm extends ConfigFormBase {
       '#open' => TRUE,
     ];
 
+    $form['azure_functions_settings'] = [
+      '#type' => 'details',
+      '#title' => t('Azure Functions Settings'),
+      '#open' => TRUE,
+    ];
+
     $form['azure_search_indexes'] = [
       '#type' => 'details',
       '#title' => t('Azure Search Settings'),
@@ -98,6 +104,26 @@ class SettingsForm extends ConfigFormBase {
         ->get('highlight-post-tag'),
       '#size' => 40,
       '#description' => t('This is the highlight post-tag used search highlighting for your Azure Search service.'),
+    ];
+
+    $form['azure_functions_settings']['azure-functions-endpoint'] = [
+      '#type' => 'textfield',
+      '#title' => t('Azure Functions Endpoint'),
+      '#default_value' => $this->config('azure_search_settings.settings')
+        ->get('azure-functions-endpoint'),
+      '#size' => 40,
+      '#description' => t('This is the endpoint of your Azure Functions service.  The format for this should be https://[YOUR NAME HERE].azurewebsites.net.'),
+      '#field_prefix' => t('https://'),
+      '#field_suffix' => t('.azurewebsites.net'),
+    ];
+
+    $form['azure_functions_settings']['azure-functions-api-code'] = [
+      '#type' => 'textfield',
+      '#title' => t('Azure Functions API Code'),
+      '#default_value' => $this->config('azure_search_settings.settings')
+        ->get('azure-functions-api-code'),
+      '#size' => 60,
+      '#description' => t('This is the api code for the endpoint of your Azure Function service.'),
     ];
 
     $form['azure_search_indexes']['resync_indexes'] = [
@@ -297,6 +323,14 @@ class SettingsForm extends ConfigFormBase {
       $form_state->setErrorByName('api-key', $this->t('The value for API Key cannot be empty.'));
     }
 
+    if (strlen($form_state->getValue('azure-functions-endpoint')) == 0) {
+      $form_state->setErrorByName('azure-functions-endpoint', $this->t('The value for Azure Functions Endpoint cannot be empty.'));
+    }
+
+    if (strlen($form_state->getValue('azure-functions-api-code')) == 0) {
+      $form_state->setErrorByName('azure-functions-api-code', $this->t('The value for Azure Functions Endpoint API Code cannot be empty.'));
+    }
+
     parent::validateForm($form, $form_state);
   }
 
@@ -311,6 +345,8 @@ class SettingsForm extends ConfigFormBase {
       ->set('enable-text-highlighting', $form_state->getValue('enable-text-highlighting'))
       ->set('highlight-pre-tag', $form_state->getValue('highlight-pre-tag'))
       ->set('highlight-post-tag', $form_state->getValue('highlight-post-tag'))
+      ->set('azure-functions-endpoint', $form_state->getValue('azure-functions-endpoint'))
+      ->set('azure-functions-api-code', $form_state->getValue('azure-functions-api-code'))
       ->save();
     parent::submitForm($form, $form_state);
   }

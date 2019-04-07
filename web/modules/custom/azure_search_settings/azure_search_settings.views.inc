@@ -201,6 +201,15 @@ function azure_search_settings_views_data() {
             ]
           ];
         }
+
+        $data[$index_node->label()]['search_page'] = [
+          'title' => t('Search Page'),
+          'help' => t('This is the page that the search term appears on.'),
+          'field' => [
+            'id' => 'search_page',
+          ],
+        ];
+
       }
     }
     //Finishing the database code
