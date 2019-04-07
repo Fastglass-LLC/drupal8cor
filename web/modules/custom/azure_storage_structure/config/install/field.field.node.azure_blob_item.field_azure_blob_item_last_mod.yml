@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_azure_blob_item_last_mod
+    - node.type.azure_blob_item
+  module:
+    - datetime
+id: node.azure_blob_item.field_azure_blob_item_last_mod
+field_name: field_azure_blob_item_last_mod
+entity_type: node
+bundle: azure_blob_item
+label: 'Blob Item Last Modified'
+description: 'This is the Last Modified timestamp of the Azure Blob item.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime
