@@ -90,7 +90,9 @@ class AzureSearch extends QueryPluginBase {
       $view_fields = $view->getQuery()->view->getDisplay()->getFieldLabels();
 
       foreach (array_keys($view_fields) as $view_field) {
-        $search_fields = $search_fields . $view_field . ',';
+        if ($view_field != 'search_page') {
+          $search_fields = $search_fields . $view_field . ',';
+        }
       }
       $search_fields = rtrim($search_fields, ',');
 
@@ -133,9 +135,9 @@ class AzureSearch extends QueryPluginBase {
       $azure_search = json_decode($response->getBody());
 
       //Set Pager information in order to use the default paging functionality from Drupal.
-      $azure_search_array = json_decode($response->getBody(),TRUE);
+      $azure_search_array = json_decode($response->getBody(), TRUE);
       $view->getPager()->useCountQuery(FALSE);
-      $view->getPager()->total_items=$azure_search_array['@odata.count'];
+      $view->getPager()->total_items = $azure_search_array['@odata.count'];
       $view->getPager()->updatePageInfo();
 
       foreach ($azure_search->value as $search_row) {
@@ -198,6 +200,8 @@ class AzureSearch extends QueryPluginBase {
         if ($search_row->merged_content != NULL) {
           $row['merged_content'] = $search_row->merged_content;
         }
+
+        $row['search_page'] = 'https://image.shutterstock.com/image-vector/smiley-vector-happy-face-450w-465566966.jpg';
 
         $row['index'] = $index;
         $view->result[] = new ResultRow($row);
