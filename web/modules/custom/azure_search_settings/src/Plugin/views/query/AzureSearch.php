@@ -201,7 +201,8 @@ class AzureSearch extends QueryPluginBase {
           $row['merged_content'] = $search_row->merged_content;
         }
 
-        $row['search_page'] = 'https://image.shutterstock.com/image-vector/smiley-vector-happy-face-450w-465566966.jpg';
+        //TODO - Need to move this to a different area and note that this field requires other fields present.
+        $row['search_page'] = $search_row->metadata_storage_name;
 
         $row['index'] = $index;
         $view->result[] = new ResultRow($row);
